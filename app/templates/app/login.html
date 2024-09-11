@@ -1,7 +1,113 @@
 {% load static %}
 {% include "base.html" %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+<!-- <link rel="stylesheet" type="text/css" href="{%'css/login.css' %}"> -->
 <script src="{% static 'js/login.js' %}"></script>
+<style>
+	/* General Styles */
+body {
+	font-family: 'Roboto', sans-serif;
+	/* Use a modern font */
+	background-color: #f4f6f9;
+	/* Light background for a clean look */
+	margin: 0;
+}
+
+.container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
+.card {
+	background-color: #be7575;
+	padding: 30px;
+	border-radius: 10px;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+	width: 100%;
+	max-width: 400px;
+	box-sizing: border-box;
+}
+
+/* Title Styling */
+.title {
+	font-size: 24px;
+	font-weight: 600;
+	color: #333;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+/* Form Group Styling */
+.form-group {
+	margin-bottom: 20px;
+}
+
+.form-group label {
+	font-size: 14px;
+	color: #555;
+	display: block;
+	margin-bottom: 8px;
+}
+
+.form-group input {
+	width: 100%;
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 14px;
+	box-sizing: border-box;
+	transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+	border-color: #007bff;
+	outline: none;
+}
+
+/* Button Styling */
+.btn {
+	font-size: 16px;
+	padding: 12px;
+	background-color: #007bff;
+	border: none;
+	color: #fff;
+	border-radius: 4px;
+	width: 100%;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+	background-color: #0056b3;
+}
+
+/* Alert Styling */
+.alert {
+	font-size: 14px;
+	padding: 10px;
+	margin-top: 20px;
+	color: #721c24;
+	background-color: #f8d7da;
+	border-color: #f5c6cb;
+	border-radius: 4px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+	.card {
+		padding: 20px;
+	}
+
+	.title {
+		font-size: 20px;
+	}
+
+	.btn {
+		font-size: 14px;
+	}
+}
+</style>
 <body>
 <div style="width: 50%; margin: auto; margin-top: 5%;" class = "login">
 	<div class="row" id="box">
