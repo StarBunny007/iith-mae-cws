@@ -1,0 +1,58 @@
+/* Hide the default radio button */
+.form-check-input {
+	position: absolute;
+	opacity: 0;
+}
+
+/* Create a custom radio button */
+.custom-radio .form-check-input:checked~.form-check-label::before {
+	background-color: #007bff;
+	/* Default checked color */
+	border-color: #007bff;
+}
+
+.custom-radio .form-check-input:checked~.form-check-label::after {
+	background-color: #fff;
+	/* Color inside the checked circle */
+}
+
+/* Style for different choices */
+.choice-accept .form-check-label::before {
+	border-color: #28a745;
+	/* Green border */
+}
+
+.choice-accept .form-check-label::after {
+	background-color: #28a745;
+	/* Green dot */
+}
+
+.choice-maybe .form-check-label::before {
+	border-color: #ffc107;
+	/* Yellow border */
+}
+
+.choice-maybe .form-check-label::after {
+	background-color: #ffc107;
+	/* Yellow dot */
+}
+
+.choice-reject .form-check-label::before {
+	border-color: #dc3545;
+	/* Red border */
+}
+
+.choice-reject .form-check-label::after {
+	background-color: #dc3545;
+	/* Red dot */
+}
+
+.choice-done .form-check-label::before {
+	border-color: #28a745;
+	/* Green border */
+}
+
+.choice-done .form-check-label::after {
+	background-color: #28a745;
+	/* Green dot */
+}
