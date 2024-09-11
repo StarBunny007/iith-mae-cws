@@ -1,0 +1,39 @@
+{% include "base.html" %}
+{% load static %}
+<style type="text/css">
+	#flowchart {
+		margin: auto;
+		width: 50%;
+		display: block;
+	}
+</style>
+<div class="container" style="max-width: 80%;">
+	{% if user.is_authenticated %}
+	<br>
+	<h2 style="color: #5a5a5a;">Hi, {{ user.get_username }}</h2>
+	{% else %}
+	<br>
+	<h1 id="workflow">WORKFLOW</h1>
+	<img id="flowchart" src="{% static 'img/workflow.jpg' %}"><br>
+	{% endif %}
+	{% if user.get_username == approver.approver2 %}
+	<div class="col-sm-12" style="text-align: center;">
+		<a href="/approve_orders"><button class="btn btn-lg">Approve New Work Requests</button></a>
+		<a href="/pending_orders"><button class="btn btn-lg">Track Work Requests</button></a>
+		<!-- <a href="/status_completed_list"><button class="btn btn-lg">Update Completed Work Requests</button></a> -->
+	</div>
+	{% endif %}
+	{% if user.get_username == approver.approver3 %}
+	<div class="col-sm-12" style="text-align: center;">
+		<a href="/approve_orders"><button class="btn btn-lg">Approve New Work Requests</button></a>
+		<a href="/status_list"><button class="btn btn-lg">Update Existing Work Requests</button></a>
+		<a href="/status_completed_list"><button class="btn btn-lg"> Completed Work Requests</button></a>
+	</div>
+	{% endif %}
+</div>
+<style type="text/css">
+	.list li {
+		margin: 1%;
+	}
+</style>
+{% include "footer.html" %}

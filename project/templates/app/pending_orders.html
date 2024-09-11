@@ -1,0 +1,39 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/orders.css' %}">
+{% include "base.html" %}
+
+
+<div style="width: 80%;margin-top: 5%;margin:auto;">
+	<table class="table">
+	    <thead>
+		    <tr>
+		        <th scope="col">S.No</th>
+		        <th scope="col">DATE</th>
+			    <th scope="col">NAME</th>
+		        <th scope="col">EMAIL</th>
+		        <th scope="col">TITLE</th>
+		        <th scope="col">CHECK</th>
+		    </tr>
+	    </thead>
+	    <tbody>
+	    	{% if orders %}
+	    	{% for order in orders %}
+		    <tr>
+		        <th scope="row">{{ forloop.counter }}</th>
+		      	<td>{{ order.uploaded_at|date:"d M Y" }}</td>
+			<td>{{ order.name }}</td>
+		      	<td>{{ order.mail }}</td>
+		      	<td class="work_row">{{ order.title }}</td>
+		      	<td scope="row"><a href="/order_decision/{{ order.id }}">Check this order</a></td>
+		     	
+		    </tr>
+		    {% endfor %}
+		    {% else %}
+		    <tr>
+		    	<td colspan="5" style="text-align: center">There are no pending orders</td>
+		    </tr>
+		    {% endif %}
+	    </tbody>
+	</table>
+</div>
+{% include "footer.html" %}

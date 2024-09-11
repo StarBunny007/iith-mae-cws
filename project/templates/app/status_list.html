@@ -1,0 +1,112 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/orders.css' %}">
+{% include "base.html" %}
+<h2 style="text-align: center; margin-top: 2%; color: #5a5a5a">{{ type }}</h2>
+<div  class="container-fluid mt-1">
+	<div class="table-responsive">
+	<table class="table table-hover table-striped">
+		<thead>
+			<tr>
+				<th scope="col">S.No</th>
+				<th scope="col">Date</th>
+				<th scope="col">NAME</th>
+				<th scope="col">EMAIL</th>
+				<th scope="col">TITLE</th>
+				<th scope="col">APPROVER</th>
+				<th scope="col">APPROVAL 1</th>
+				<th scope="col">APPROVAL 2</th>
+				<th scope="col">APPROVAL 3</th>
+				<th scope="col">Remarks</th>
+				{% if user.username == approver3 %}
+				<th scope="col">Expected</th>
+				{% endif %}
+				<th scope="col">STATUS</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% if orders %}
+			{% for order in orders %}
+			<tr>
+				<td>{{ forloop.counter }}</td>
+				<td>{{ order.uploaded_at|date:"d M Y" }}</td>
+				<td>{{ order.name }}</td>
+				<td>
+					{{ order.mail|linebreaks }}
+				</td>
+				<td>{{ order.title }}</td>
+				<td>
+					{{ order.prof_name }}<br>
+					<a href="mailto:{{ order.prof_mail }}">{{ order.prof_mail }}</a>
+				</td>
+
+				<td>
+					{% if order.approval1 == 'Pending' %}
+					<div class="alert alert-primary" role="alert">
+						{{ order.approval1 }}
+					</div>
+					{% elif order.approval1 == 'Accepted' %}
+					<div class="alert alert-success" role="alert">
+						{{ order.approval1 }}
+					</div>
+					{% elif order.approval1 == 'Rejected' %}
+					<div class="alert alert-danger" role="alert">
+						{{ order.approval1 }}
+					</div>
+					{% endif %}
+				</td>
+
+				<td>
+					{% if order.approval2 == 'Pending' %}
+					<div class="alert alert-primary" role="alert">
+						{{ order.approval2 }}
+					</div>
+					{% elif order.approval2 == 'Accepted' %}
+					<div class="alert alert-success" role="alert">
+						{{ order.approval2 }}
+					</div>
+					{% elif order.approval2 == 'Rejected' %}
+					<div class="alert alert-danger" role="alert">
+						{{ order.approval2 }}
+					</div>
+					{% elif order.approval2 == 'May be' %}
+					<div class="alert alert-warning" role="alert">
+						{{ order.approval2 }}
+					</div>
+					{% endif %}
+				</td>
+
+				<td>
+					{% if order.approval3 == 'Pending' %}
+					<div class="alert alert-primary" role="alert">
+						{{ order.approval3 }}
+					</div>
+					{% elif order.approval3 == 'Accepted' %}
+					<div class="alert alert-success" role="alert">
+						{{ order.approval3 }}
+					</div>
+					{% elif order.approval3 == 'Rejected' %}
+					<div class="alert alert-danger" role="alert">
+						{{ order.approval3 }}
+					</div>
+					{% endif %}
+				</td>
+				<td>{{ order.remarks }}</td>
+				{% if user.username == approver3 %}
+				<td>{{ order.expected_at|date:"d-m-Y" }}</td>
+				{% endif %}
+				</td>
+				<td>
+					<a href="/update_status/{{ order.id }}" class="btn btn-primary">Update status</a>
+				</td>
+			</tr>
+			{% endfor %}
+			{% else %}
+			<tr>
+				<td colspan="13" style="text-align: center;">There are no orders</td>
+			</tr>
+			{% endif %}
+		</tbody>
+	</table>
+	</div>
+</div>
+{% include "footer.html" %}

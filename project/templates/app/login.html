@@ -1,0 +1,75 @@
+{% load static %}
+{% include "base.html" %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+<script src="{% static 'js/login.js' %}"></script>
+<body>
+<div style="width: 50%; margin: auto; margin-top: 5%;" class = "login">
+	<div class="row" id="box">
+		<div class="col-md-12">
+			<h2 class="title">LOGIN PAGE</h2><br>
+			<form action="/do_login" method="post" enctype="multipart/form-data">
+				{% csrf_token %}
+				<div class="form-group row" >
+					<label for="username" class="col-sm-4" style ="text-align: left;font-size: 20px;">
+						EMAIL
+					</label>
+					<div class="col-sm-8">
+						{{ loginform.username }}
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="password" class="col-sm-4" style ="text-align:left;font-size: 20px;">PASSWORD</label>
+					<div class="col-sm-8">
+						{{ loginform.password }}
+					</div>
+				</div><br><br><br>
+				<div class="form-group row">
+					<div class="col-sm-12" style="align-items: center;">
+						<button type="submit" class="btn btn-lg">LOGIN</button>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<!-- Uncomment the following section to enable registration
+        <div class="col-md-6">
+            <h2 class="title">REGISTER</h2><br>
+            <form action="/do_register" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group row">
+                    <label for="register_username" class="col-sm-4">EMAIL</label>
+                    <div class="col-sm-8">
+                        {{ registerform.username }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="register_password1" class="col-sm-4">PASSWORD</label>
+                    <div class="col-sm-8">
+                        {{ registerform.password1 }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="register_password2" class="col-sm-4">CONFIRM PASSWORD</label>
+                    <div class="col-sm-8">
+                        {{ registerform.password2 }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-lg">REGISTER</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        -->
+</body>
+		{% if message %}
+		<div class="alert alert-danger" style="width: 100%">
+			{{ message }}
+		</div>
+		{% endif %}
+	</div>
+</div>
+
+
+{% include "footer.html" %}

@@ -1,0 +1,14 @@
+{% include "base.html" %}
+	<h1 style="text-align: center;margin-top: 1%;color: #5a5a5a;">Welcome to IITH CWS</h1>
+	<h3 style="width: 100%;text-align: center;color: #5a5a5a;">Your response has been recorded.Thank you.</h3>
+	{% if user.is_authenticated %}
+	<br>
+		&nbsp;<h1>Hi, {{ user.get_username }}</h1>
+		&nbsp;<h4>You may have orders to be approved, please check in "Approve Orders" in the tab.</h4>
+	{% endif %}
+	{% ifequal user.get_username approver.approver2 %}
+     <div class="col-sm-12" style="text-align: center;">
+    	<a href="/status_list"><button class="btn btn-lg">UPDATE WORD ORDER STATUS</button></a>
+    </div>
+     {% endifequal %}
+{% include "footer.html" %}
