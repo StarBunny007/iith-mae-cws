@@ -157,5 +157,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
 #     # and renames the files with unique names for each version to support long-term caching
 #     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+APPEND_SLASH = False
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
