@@ -1,0 +1,144 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/orders.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/form.css' %}">
+{% include "base.html" %}
+<style type="text/css">
+	.info {
+		text-align: left;
+		padding: 0.5rem;
+		font-size: 1.25rem;
+	}
+	label[for=result_0]
+	{
+	    color: #155724;
+	    background-color: #d4edda;
+	    margin-left:5%;
+	    margin-right: 5%;
+	    padding: 1%;
+	    border-radius: 5px;
+
+	}
+
+	label[for=result_1]
+	{
+	    color: #721c24;
+	    background-color: #f8d7da;
+	    margin-left:5%;
+	    margin-right: 5%;
+	    padding: 1%;
+	    border-radius: 5px;
+	    
+	}
+</style>
+<div class="container" style="text-align: center;margin-top: 2%;margin-bottom: 1%;">
+	<div class="form-group row">
+	    <label for="name" class="col-sm-4">NAME : </label>
+	    <div class="col-sm-8">
+	    	<p class="info">{{ order.name }}</p>
+	    </div>
+    </div>
+    <div class="form-group row">
+	    <label for="name" class="col-sm-4">EMAIL : </label>
+	    <div class="col-sm-8">
+	    	<p class="info">{{ order.mail }}</p>
+	    </div>
+    </div>
+    <div class="form-group row">
+	    <label for="name" class="col-sm-4">MOBILE : </label>
+	    <div class="col-sm-8">
+	    	<p class="info">{{ order.mobile }}</p>
+	    </div>
+    </div>
+     <div class="form-group row">
+	    <label for="name" class="col-sm-4">DATE : </label>
+	    <div class="col-sm-8">
+	    	<p class="info">{{ order.uploaded_at|date:"d M Y" }}</p>
+	    </div>
+    </div>
+    <div class="form-group row">
+	    <label for="name" class="col-sm-4">WORK ORDER TITLE : </label>
+	    <div class="col-sm-8">
+	    	<p class="info">{{ order.title }}</p>
+	    </div>
+    </div>
+    <div class="form-group row">
+	    <label for="name" class="col-sm-4">WORK DESCRIPTION : </label>
+	    <div class="col-sm-8">
+	    	<p class="info">{{ order.work }}</p>
+	    </div>
+    </div>
+    <div class="form-group row">
+	    <label for="name" class="col-sm-4">FILE : </label>
+	    <div class="col-sm-8">
+	    	<p class="info"><a href="/media/{{ order.file }}">{{ order.file }}</a></p>
+	    </div>
+    </div>
+    <div class="form-group row">
+	    <label for="name" class="col-sm-4">WORK TYPE : </label>
+	    <div class="col-sm-8">
+	    	<p class="info">{{ order.worktype }}</p>
+	    </div>
+    </div>
+    <div class="form-group row">
+	    <label for="name" class="col-sm-4">REFERENCE PROFESSOR NAME : </label>
+	    <div class="col-sm-8">
+	    	<p class="info">{{ order.prof_name }}</p>
+	    </div>
+    </div>
+    <div class="form-group row">
+	    <label for="name" class="col-sm-4">REFERENCE PROFESSOR EMAIL : </label>
+	    <div class="col-sm-8">
+	    	<p class="info">{{ order.prof_mail }}</p>
+	    </div>
+    </div>
+	<div class="form-group row">
+		<label for="name" class="col-sm-4">Assigned to : </label>
+		<div class="col-sm-8">
+			<p class="info">{{ order.assigned }}</p>
+		</div>
+	</div>
+    {% if status_list %}
+    {% for status in status_list %}
+    <div class="form-group row">
+	    <label for="name" class="col-sm-4">STATUS 1 :</label>
+	    <div class="col-sm-8">
+	    	<p class="info">{{ status.status_text }}</p>
+	    </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
+<div class="container" style="text-align: center;margin-bottom: 5%;">
+	<form action="/update_status/{{ order.id }}/" method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+		<div class="form-group row"> 
+			<label for="name" class="col-sm-4">STATUS UPDATE : </label> 
+		    <div class="col-sm-8">
+		    	{{ statusform.status_input }}
+		    </div>
+	    </div><br><br>
+{% if order.complete == "Workdone" %}
+<div class="form-group row">
+	<label for="name" class="col-sm-4">WORK ORDER TOTALLY COMPLETED: </label>
+	<div class="col-sm-8">
+		{{ order.complete }}
+	</div>
+</div>
+{% else %}
+<div class="form-group row">
+	<label for="name" class="col-sm-4">WORK ORDER TOTALLY COMPLETED: </label>
+	<div class="col-sm-8">
+		{{ statusform.completed_input }}
+	</div>
+</div>
+{% endif %}
+
+	    <div class="form-group row">
+		    <div class="col-sm-12">
+		    	<button type="submit" class="btn btn-lg">Submit</button>
+		    </div>
+	    </div>
+	</form>
+</div>
+{% include "footer.html" %}
