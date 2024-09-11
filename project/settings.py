@@ -74,13 +74,16 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
+    if not DEBUG:
+       DATABASES = {'default': dj_database_url.parse(os.environ.get('postgresql://cwsiith:FfTACnEQyd5aSoyLV0dvOiyBLm0o1cYL@dpg-crgtcetsvqrc7385b760-a/cwsiith'))}
+    else:
+     DATABASES = {
 
-DATABASES = {
-    'default': {
+     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+     }
+     }
 
 
 # Password validation
