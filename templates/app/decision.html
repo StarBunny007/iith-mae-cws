@@ -1,0 +1,242 @@
+{% load static %}
+{% include "base.html" %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/orders.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/form.css' %}">
+<style type="text/css">
+	.container {
+		text-align: center;
+		margin-top: 2%;
+		margin-bottom: 5%;
+		padding: 20px;
+		background-color: #f9f9f9;
+		border-radius: 10px;
+		box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+	}
+
+	.form-group {
+		margin-bottom: 1.5rem;
+	}
+
+	.info {
+		text-align: left;
+		padding: 0.75rem;
+		font-size: 1.1rem;
+		background-color: #fff;
+		border-radius: 5px;
+		box-shadow: inset 0px 1px 4px rgba(0, 0, 0, 0.1);
+	}
+
+	label {
+		font-weight: 600;
+		font-size: 1.2rem;
+		text-align: right;
+	}
+	.form-control {
+		box-shadow: none;
+		border-radius: 5px;
+	}
+	.alert {
+		padding: 0.5rem;
+		/* Reduce padding */
+		font-size: 0.9rem;
+		/* Reduce font size */
+		margin-bottom: 0.5rem;
+		/* Reduce the space between boxes */
+		border-radius: 0.25rem;
+		/* Adjust border radius to make it more compact */
+	}
+	
+</style>
+<div class="container">
+	<div class="form-group row">
+		<label for="name" class="col-sm-4">NAME : </label>
+		<div class="col-sm-8">
+			<p class="info">{{ order.name }}</p>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="email" class="col-sm-4">EMAIL : </label>
+		<div class="col-sm-8">
+			<p class="info">{{ order.mail }}</p>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="date" class="col-sm-4">DATE : </label>
+		<div class="col-sm-8">
+			<p class="info">{{ order.uploaded_at|date:"d M Y" }}</p>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="mobile" class="col-sm-4">MOBILE : </label>
+		<div class="col-sm-8">
+			<p class="info">{{ order.mobile }}</p>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="title" class="col-sm-4">WORK ORDER TITLE : </label>
+		<div class="col-sm-8">
+			<p class="info">{{ order.title }}</p>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="work" class="col-sm-4">WORK DESCRIPTION : </label>
+		<div class="col-sm-8">
+			<p class="info">{{ order.work }}</p>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="file" class="col-sm-4">FILE : </label>
+		<div class="col-sm-8">
+			<p class="info"><a href="/media/{{ order.file }}" target="_blank">{{ order.file }}</a></p>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="worktype" class="col-sm-4">WORK TYPE : </label>
+		<div class="col-sm-8">
+			<p class="info">{{ order.worktype }}</p>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="prof_name" class="col-sm-4">NAME OF GUIDE/INCHARGE : </label>
+		<div class="col-sm-8">
+			<p class="info">{{ order.prof_name }}</p>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="prof_mail" class="col-sm-4">EMAIL OF GUIDE/INCHARGE : </label>
+		<div class="col-sm-8">
+			<p class="info">{{ order.prof_mail }}</p>
+		</div>
+	</div>
+
+	{% if user.is_authenticated %}
+	<div class="form-group row">
+		<label for="approval1" class="col-sm-4">APPROVAL1(Guide/Incharge) : </label>
+		<div class="col-sm-8">
+			<div class="alert 
+	            {% if order.approval1 == 'Pending' %}
+	                alert-primary
+	            {% elif order.approval1 == 'Accepted' %}
+	                alert-success
+	            {% elif order.approval1 == 'Rejected' %}
+	                alert-danger
+	            {% endif %}
+	        ">
+				{{ order.approval1 }}
+			</div>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="remarks1" class="col-sm-4">REMARKS 1 : </label>
+		<div class="col-sm-8">
+			<div class="alert alert-light">
+				{% if order.remarks1 == '' %}
+				--
+				{% else %}
+				{{ order.remarks1 }}
+				{% endif %}
+			</div>
+		</div>
+	</div>
+
+	{% if user.username == approver.approver3 %}
+	<div class="form-group row">
+		<label for="approval2" class="col-sm-4">APPROVAL2 (FIC-CW) : </label>
+		<div class="col-sm-8">
+			<div class="alert 
+	            {% if order.approval2 == 'Pending' %}
+	                alert-primary
+	            {% elif order.approval2 == 'Accepted' %}
+	                alert-success
+	            {% elif order.approval2 == 'May be' %}
+	                alert-warning
+	            {% elif order.approval2 == 'Rejected' %}
+	                alert-danger
+	            {% endif %}
+	        ">
+				{{ order.approval2 }}
+			</div>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="expected_date" class="col-sm-4">EXPECTED COMPLETION DATE : </label>
+		<div class="col-sm-8">
+			<input type="date" id="expected_date" name="expected_date" value="{{ order.expected_at|date:'Y-m-d' }}"
+				class="form-control">
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="assign" class="col-sm-4">Assigned to:</label>
+		<div class="col-sm-8">
+			<input type="text" id="assign" name="assign" class="form-control" value="{{ order.assign }}">
+		</div>
+	</div>
+	{% endif %}
+	{% endif %}
+	<form action="/decision/{{ order.id }}/{{ prof_hash }}" method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+		<!-- Decision Radio Buttons for Approval -->
+		<div class="form-group row">
+			<div class="col-sm-12">
+				<label>Approval Decision:</label>
+				{% for radio in decisionform.decision %}
+				<div class="form-check form-check-inline custom-radio
+	            {% if radio.choice_value == 'Accept' %}
+	                choice-accept
+	            {% elif radio.choice_value == 'May be' %}
+	                choice-maybe
+	            {% elif radio.choice_value == 'Reject' %}
+	                choice-reject
+	            {% endif %}
+	        ">
+					{{ radio.tag }}
+					<label class="form-check-label">
+						{{ radio.choice_label }}
+					</label>
+				</div>
+				{% endfor %}
+			</div>
+</div>
+<!-- Decision1 Radio Buttons for Progress/Work Done -->
+<!-- 
+{% if user.username == approver.approver3 %}
+<div class="form-group row">
+	<div class="col-sm-12">
+		<label>Progress/Work Done:</label>
+		{% for radio in decisionform.decision1 %}
+		<div class="form-check form-check-inline custom-radio
+            {% if radio.choice_value == 'In Progress' %}
+                choice-progress
+            {% elif radio.choice_value == 'Work Done' %}
+                choice-done
+            {% endif %}
+        " >
+			{{ radio.tag }}
+			<label class="form-check-label" >
+				{{ radio.choice_label }}
+			</label>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+{% endif %} -->
+
+		<!-- Remarks Text Area -->
+		<div class="form-group row">
+			<div class="col-sm-12">
+				{{ decisionform.remarks.label_tag }}
+				{{ decisionform.remarks }}
+			</div>
+		</div>
+
+		<!-- Submit Button -->
+		<div class="form-group row">
+			<div class="col-sm-12">
+				<button type="submit" class="btn btn-lg">Submit</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+{% include "footer.html" %}

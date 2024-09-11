@@ -1,0 +1,191 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/detail.css' %}">
+{% include "base.html" %}
+
+<div class="container" style="text-align: center; margin-top: 2%; margin-bottom: 5%;">
+	<div class="form-group row">
+		<label for="name" class="col-sm-5">NAME : </label>
+		<div class="col-sm-7">
+			<p class="info">{{ order.name }}</p>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="email" class="col-sm-5">EMAIL : </label>
+		<div class="col-sm-7">
+			<p class="info">{{ order.mail }}</p>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="mobile" class="col-sm-5">MOBILE : </label>
+		<div class="col-sm-7">
+			<p class="info">{{ order.mobile }}</p>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="date" class="col-sm-5">DATE : </label>
+		<div class="col-sm-7">
+			<p class="info">{{ order.uploaded_at|date:"d M Y" }}</p>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="work_order_title" class="col-sm-5">WORK ORDER TITLE : </label>
+		<div class="col-sm-7">
+			<p class="info">{{ order.title }}</p>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="work_description" class="col-sm-5">WORK DESCRIPTION : </label>
+		<div class="col-sm-7">
+			<p class="info">{{ order.work }}</p>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="file" class="col-sm-5">FILE : </label>
+		<div class="col-sm-7">
+			<p class="info"><a href="/media/{{ order.file }}">{{ order.file }}</a></p>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="work_type" class="col-sm-5">WORK TYPE : </label>
+		<div class="col-sm-7">
+			<p class="info">{{ order.worktype }}</p>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="guide_name" class="col-sm-5">NAME OF GUIDE/INCHARGE: </label>
+		<div class="col-sm-7">
+			<p class="info">{{ order.prof_name }}</p>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="guide_email" class="col-sm-5">EMAIL OF GUIDE/INCHARGE: </label>
+		<div class="col-sm-7">
+			<p class="info">{{ order.prof_mail }}</p>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="approval1" class="col-sm-5">APPROVAL1 (Guide/Incharge) : </label>
+		<div class="col-sm-7">
+			{% if order.approval1 == 'Pending' %}
+			<div class="alert alert-primary" role="alert">
+				{{ order.approval1 }}
+			</div>
+			{% elif order.approval1 == 'Accepted' %}
+			<div class="alert alert-success" role="alert">
+				{{ order.approval1 }}
+			</div>
+			{% elif order.approval1 == 'Rejected' %}
+			<div class="alert alert-danger" role="alert">
+				{{ order.approval1 }}
+			</div>
+			{% endif %}
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label for="remarks1" class="col-sm-5">REMARKS 1 : </label>
+		<div class="alert alert-light col-sm-7" role="alert">
+			{% if order.remarks1 %}
+			{{ order.remarks1 }}
+			{% else %}
+			--
+			{% endif %}
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label for="approval2" class="col-sm-5">APPROVAL2 (Workshop Technical Team) : </label>
+		<div class="col-sm-7">
+			{% if order.approval2 == 'Pending' %}
+			<div class="alert alert-primary" role="alert">
+				{{ order.approval2 }}
+			</div>
+			{% elif order.approval2 == 'Accepted' %}
+			<div class="alert alert-success" role="alert">
+				{{ order.approval2 }}
+			</div>
+			{% elif order.approval2 == 'May be' %}
+			<div class="alert alert-warning" role="alert">
+				{{ order.approval2 }}
+			</div>
+			{% elif order.approval2 == 'Rejected' %}
+			<div class="alert alert-danger" role="alert">
+				{{ order.approval2 }}
+			</div>
+			{% endif %}
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label for="remarks2" class="col-sm-5">REMARKS 2 : </label>
+		<div class="alert alert-light col-sm-7" role="alert">
+			{% if order.remarks2 %}
+			{{ order.remarks2 }}
+			{% else %}
+			--
+			{% endif %}
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label for="approval3" class="col-sm-5">APPROVAL3 (Workshop Faculty Incharge) : </label>
+		<div class="col-sm-7">
+			{% if order.approval3 == 'Pending' %}
+			<div class="alert alert-primary" role="alert">
+				{{ order.approval3 }}
+			</div>
+			{% elif order.approval3 == 'Accepted' %}
+			<div class="alert alert-success" role="alert">
+				{{ order.approval3 }}
+			</div>
+			{% elif order.approval3 == 'Rejected' %}
+			<div class="alert alert-danger" role="alert">
+				{{ order.approval3 }}
+			</div>
+			{% endif %}
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label for="remarks3" class="col-sm-5">REMARKS 3 : </label>
+		<div class="alert alert-light col-sm-7" role="alert">
+			{% if order.remarks3 %}
+			{{ order.remarks3 }}
+			{% else %}
+			--
+			{% endif %}
+		</div>
+	</div>
+
+	{% if status_list %}
+	{% for status in status_list %}
+	<div class="form-group row">
+		<label for="status" class="col-sm-5">STATUS : </label>
+		<div class="col-sm-7">
+			<p class="info">{{ status.status_text }}</p>
+		</div>
+	</div>
+	{% endfor %}
+	<div class="form-group row">
+		<label for="completed" class="col-sm-5">COMPLETED : </label>
+		<div class="col-mg-8">
+			<div>
+				{% if order.completed %}
+				<div class="alert alert-success" role="alert">Work Done</div>
+				{% else %}
+				<div class="alert alert-danger" role="alert">In progress</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+	{% endif %}
+
+	<div class="form-group row">
+		<div class="col-sm-12">
+			<a href="/orders"><button class="btn btn-lg">BACK</button></a>
+		</div>
+	</div>
+</div>
+
+{% include "footer.html" %}
