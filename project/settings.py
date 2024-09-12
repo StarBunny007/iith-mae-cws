@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-zi3+ksd7&h!jd*qrw7*4t30amm-v0)7oy+a*+ke$et%3#fqsoa'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     'iith-mae-cws.onrender.com',
@@ -94,6 +94,26 @@ else:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'cwsiith',
+#         'USER': 'cwsiith',
+#         'PASSWORD': 'cws@iith',
+#         'HOST': 'localhost',
+#         'PORT': '5432',  # Default port for PostgreSQL
+#     }
+# }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'cwsiith',
+#         'USER': 'cwsiith',
+#         'PASSWORD': 'cws@iith',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 
 
 # Password validation
